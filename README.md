@@ -14,6 +14,13 @@ O **Mapa de Competências Educativo** nasceu dessa reflexão: como utilizar a in
 
 A proposta combina **educação, inteligência artificial, autoconhecimento e desenvolvimento web**, incentivando uma aprendizagem ativa e acessível a diferentes públicos.
 
+## Conheça a plataforma
+
+![Constelação interativa de competências](assets/preview-constelacao.png)
+
+*Visualização interativa de competências e evidências,
+desenvolvida como ação de impacto da Semana 9.*
+
 ## Experimente o projeto
 
 **Acesse a plataforma:**  
