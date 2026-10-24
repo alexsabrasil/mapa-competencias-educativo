@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mapa interativo de competências e aprendizagem com apoio do Gemini.">
+  <title>Mapa de Competências | Alê Tavares</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="cabecalho">
+    <a class="marca" href="index.html">AT<span>.</span></a>
+    <nav aria-label="Navegação principal">
+      <a href="#mapa">Meu mapa</a>
+      <a href="constelacao.html">Constelação interativa</a>
+      <a href="#sobre">Sobre o projeto</a>
+      <a href="crie-seu-mapa.html" class="botao-menu">
+        Crie seu mapa
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="apresentacao" id="mapa">
+      <div class="introducao">
+        <span class="etiqueta">JORNADA DE APRENDIZAGEM</span>
+        <h1>Minhas competências estão
+          <span>em constante conexão.</span>
+        </h1>
+        <p>
+          Explore como minhas experiências em Educação,
+          Cibersegurança, Engenharia de Software e
+          DevSecOps se conectam.
+        </p>
+      </div>
+
+      <div class="area-mapa">
+        <svg id="rede" role="img"
+             aria-label="Rede animada de competências">
+        </svg>
+        <div id="pontos" class="pontos"></div>
+      </div>
+
+      <section class="detalhes" aria-live="polite">
+        <h2 id="competencia-titulo">
+          Explore minhas competências
+        </h2>
+        <p id="competencia-descricao">
+          Selecione um ponto do mapa para conhecer
+          a competência e suas evidências práticas.
+        </p>
+      </section>
+    </section>
+
+    <section class="sobre" id="sobre">
+      <span class="etiqueta">SEMANA 9</span>
+      <h2>Da trajetória ao mapa interativo</h2>
+      <p>
+        Este projeto foi inspirado em uma atividade
+        do Programa Embaixadores Estudantis Google.
+        Com apoio do Gemini, investiguei experiências,
+        identifiquei competências e organizei
+        evidências da minha trajetória.
+      </p>
+      <p>
+        Depois, transformei essa reflexão em uma
+        experiência visual utilizando HTML, CSS
+        e JavaScript.
+      </p>
+    </section>
+
+    <section class="convite">
+      <span class="etiqueta">AGORA É SUA VEZ</span>
+      <h2>Que tal criar seu próprio mapa?</h2>
+      <p>
+        Aprenda a identificar suas competências com
+        apoio do Gemini e crie uma visualização
+        personalizada, sem precisar programar.
+      </p>
+      <a href="crie-seu-mapa.html" class="botao-principal">
+        Aprenda a criar seu mapa →
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <p>Alê Tavares | Mapa de Competências</p>
+    <p>Projeto educativo inspirado na Semana 9</p>
+  </footer>
+</body>
+</html>

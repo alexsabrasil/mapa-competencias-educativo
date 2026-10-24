@@ -1,0 +1,12 @@
+﻿*.backup.html
+*.backup.js
+*.backup.css
+*backup*.html
+*backup*.js
+*backup*.css
+.vscode/
+node_modules/
+.env
+.env.*
+
+mapa_constelacao_corrigido (1).html

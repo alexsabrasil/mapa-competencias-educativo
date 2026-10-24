@@ -1,0 +1,243 @@
+
+/* MAPA DE COMPETÊNCIAS | ALÊ TAVARES */
+
+:root {
+  --fundo: #060d1b;
+  --painel: #101c32;
+  --ciano: #35e0f4;
+  --violeta: #aa80ff;
+  --texto: #edf5ff;
+  --suave: #a5b4cc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 7%;
+  border-bottom: 1px solid #233650;
+}
+
+.marca {
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.marca span {
+  color: var(--ciano);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+nav a:hover {
+  color: var(--ciano);
+}
+
+.botao-menu,
+.botao-principal {
+  display: inline-block;
+  padding: 12px 20px;
+  border: 1px solid var(--ciano);
+  border-radius: 10px;
+  color: var(--ciano);
+  font-weight: 600;
+}
+
+.botao-principal {
+  background: var(--ciano);
+  color: #06101c;
+  margin-top: 20px;
+}
+
+.apresentacao {
+  padding: 70px 7% 50px;
+  text-align: center;
+}
+
+.introducao {
+  max-width: 800px;
+  margin: auto;
+}
+
+.etiqueta {
+  color: var(--ciano);
+  font-size: 12px;
+  letter-spacing: 3px;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: clamp(32px, 5vw, 58px);
+  line-height: 1.15;
+  margin: 20px 0;
+}
+
+h1 span {
+  color: var(--ciano);
+}
+
+.introducao p,
+.sobre p,
+.convite p {
+  color: var(--suave);
+  max-width: 720px;
+  margin: 16px auto;
+}
+
+.area-mapa {
+  position: relative;
+  width: 100%;
+  max-width: 950px;
+  height: 470px;
+  margin: 45px auto 20px;
+  overflow: hidden;
+  border: 1px solid #24415c;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at center, #163154 0%, #081426 65%);
+}
+
+#rede,
+.pontos {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#rede {
+  pointer-events: none;
+}
+
+.ponto {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--ciano);
+  border-radius: 50px;
+  padding: 9px 14px;
+  background: #102843;
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  box-shadow: 0 0 18px #35e0f455;
+  transition: transform .25s, box-shadow .25s;
+}
+
+.ponto:hover,
+.ponto:focus-visible {
+  transform: translate(-50%, -50%) scale(1.12);
+  box-shadow: 0 0 25px var(--ciano);
+  outline: 2px solid var(--violeta);
+}
+
+.linha-rede {
+  stroke: #42bde2;
+  stroke-width: 1.3;
+  opacity: .45;
+}
+
+.particula {
+  fill: var(--ciano);
+  filter: drop-shadow(0 0 5px var(--ciano));
+}
+
+.detalhes {
+  max-width: 750px;
+  margin: 25px auto;
+  padding: 24px;
+  border: 1px solid #28415d;
+  border-radius: 16px;
+  background: var(--painel);
+  text-align: left;
+}
+
+.detalhes h2 {
+  color: var(--ciano);
+  margin-top: 0;
+}
+
+.detalhes p {
+  color: var(--suave);
+}
+
+.sobre,
+.convite {
+  padding: 65px 7%;
+  text-align: center;
+}
+
+.sobre {
+  background: #0b1729;
+}
+
+.sobre h2,
+.convite h2 {
+  font-size: clamp(26px, 4vw, 38px);
+}
+
+footer {
+  padding: 25px;
+  border-top: 1px solid #233650;
+  text-align: center;
+  color: var(--suave);
+  font-size: 13px;
+}
+
+@media (max-width: 650px) {
+  .cabecalho {
+    flex-direction: column;
+  }
+
+  nav {
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .area-mapa {
+    height: 530px;
+  }
+
+  .ponto {
+    font-size: 10px;
+    padding: 7px 9px;
+    max-width: 125px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}

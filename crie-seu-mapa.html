@@ -1,0 +1,591 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crie seu Mapa | Alê Tavares</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .tutorial {
+      max-width: 960px;
+      margin: auto;
+      padding: 55px 22px;
+    }
+    .tutorial h1 { font-size: clamp(30px, 5vw, 48px); }
+    .tutorial h2 { color: #35e0f4; margin-top: 38px; }
+    .tutorial p { color: #b7c9de; }
+    .etapas {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+    .etapa, .editor, .resultado, .prompt {
+      background: #101c32;
+      border: 1px solid #28415d;
+      border-radius: 15px;
+      padding: 20px;
+    }
+    .etapa strong { color: #35e0f4; }
+    .prompt {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      color: #edf5ff;
+    }
+    .acoes {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 18px 0;
+    }
+    .acao {
+      padding: 12px 18px;
+      border: 1px solid #35e0f4;
+      border-radius: 9px;
+      background: #35e0f4;
+      color: #06101c;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .secundario {
+      background: transparent;
+      color: #35e0f4;
+    }
+    .campo { margin: 16px 0; }
+    .campo label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 600;
+    }
+    .campo input, .campo textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #49617b;
+      border-radius: 8px;
+      background: #071427;
+      color: white;
+      font: inherit;
+    }
+    .campo textarea { min-height: 70px; }
+    .resultado { margin-top: 24px; }
+    #mapa-gerado {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #071427;
+      border-radius: 12px;
+    }
+    .aviso {
+      border-left: 3px solid #aa80ff;
+      padding: 12px 16px;
+      background: #171c35;
+      margin-top: 22px;
+    }
+  </style>
+</head>
+<body>
+  <header class="cabecalho">
+    <a class="marca" href="index.html">AT<span>.</span></a>
+    <nav>
+      <a href="index.html">Meu mapa</a>
+      <a href="#passos">Tutorial</a>
+      <a href="#editor">Criar mapa</a>
+    </nav>
+  </header>
+
+  <main class="tutorial">
+    <span class="etiqueta">SEMANA 9 | APRENDIZAGEM</span>
+    <h1>Crie seu próprio <span>Mapa de Competências</span></h1>
+    <p>
+      Descubra habilidades desenvolvidas ao longo da sua
+      trajetória e transforme suas experiências em um mapa
+      visual. Não é necessário saber programar.
+    </p>
+
+    <section id="passos">
+      <h2>1. Investigue sua trajetória com o Gemini</h2>
+      <div class="etapas">
+        <article class="etapa">
+          <strong>01. Reflita</strong>
+          <p>Identifique experiências, estudos, projetos e desafios.</p>
+        </article>
+        <article class="etapa">
+          <strong>02. Investigue</strong>
+          <p>Converse com o Gemini sobre sua trajetória.</p>
+        </article>
+        <article class="etapa">
+          <strong>03. Valide</strong>
+          <p>Confira as competências e suas evidências reais.</p>
+        </article>
+        <article class="etapa">
+          <strong>04. Visualize</strong>
+          <p>Preencha os campos abaixo e gere seu mapa.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>2. Copie este prompt para o Gemini</h2>
+      <div class="prompt" id="prompt">Com base nas experiências que vou compartilhar, ajude-me a identificar até seis habilidades e competências.
+
+Organize cada competência com:
+1. Nome da competência.
+2. Experiência real que demonstra essa habilidade.
+3. Como ela contribui para meu desenvolvimento.
+
+Não invente experiências ou qualificações. Faça perguntas quando faltar informação e permita que eu revise o resultado.</div>
+
+      <div class="acoes">
+        <button class="acao" id="copiar" type="button">
+          Copiar prompt
+        </button>
+        <a class="acao secundario"
+           href="https://gemini.google.com/app"
+           target="_blank" rel="noopener noreferrer">
+          Abrir Gemini ↗
+        </a>
+      </div>
+      <p id="status-copia" role="status"></p>
+      <div class="aviso">
+        <strong>Privacidade:</strong>
+        compartilhe com a IA somente informações que você
+        se sentir confortável em fornecer. Revise as respostas.
+      </div>
+    </section>
+
+    <section id="editor">
+      <h2>3. Construa seu mapa</h2>
+      <p>
+        Insira um título e até seis competências.
+        Use exemplos reais da sua trajetória.
+      </p>
+
+      <div class="editor">
+        <div class="campo">
+          <label for="nome">Título do seu mapa</label>
+          <input id="nome" maxlength="45"
+                 placeholder="Ex.: Minha jornada profissional">
+        </div>
+        <div id="campos"></div>
+        <div class="acoes">
+          <button class="acao" id="gerar" type="button">
+            Gerar meu mapa
+          </button>
+          <button class="acao secundario" id="limpar" type="button">
+            Limpar campos
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="resultado">
+      <h2>4. Visualize o resultado</h2>
+      <svg id="mapa-gerado" viewBox="0 0 760 460"
+           role="img" aria-label="Mapa de competências criado pelo visitante">
+      </svg>
+      <div id="evidencias"></div>
+      <div class="acoes">
+        <button class="acao" id="exportar" type="button">
+          Baixar meu mapa em SVG
+        </button>
+        
+        <button class="acao secundario" id="exportar-html" type="button">
+          Baixar mapa interativo em HTML
+        </button>
+
+      </div>
+      <p id="status-mapa" role="status"></p>
+    </section>
+
+    <section>
+      <h2>O aprendizado continua!</h2>
+      <p>
+        Seu mapa é um registro do momento atual.
+        Conforme você desenvolve novas habilidades,
+        pode voltar, revisar e criar outra versão.
+      </p>
+      <a class="botao-principal" href="index.html">
+        ← Voltar ao mapa da Alê
+      </a>
+    </section>
+  </main>
+
+  <footer>
+    <p>Alê Tavares | Projeto educativo</p>
+    <p>Inspirado na Semana 9 dos Embaixadores Estudantis Google</p>
+  </footer>
+
+  <script>
+    const campos = document.getElementById("campos");
+    const svg = document.getElementById("mapa-gerado");
+    const evidencias = document.getElementById("evidencias");
+    const statusMapa = document.getElementById("status-mapa");
+    const NS = "http://www.w3.org/2000/svg";
+
+    for (let i = 1; i <= 6; i++) {
+      const grupo = document.createElement("div");
+      grupo.className = "campo";
+
+      const rotulo = document.createElement("label");
+      rotulo.htmlFor = "comp" + i;
+      rotulo.textContent = "Competência " + i;
+
+      const entrada = document.createElement("input");
+      entrada.id = "comp" + i;
+      entrada.maxLength = 35;
+      entrada.placeholder = "Ex.: Comunicação";
+
+      const rotuloEvidencia = document.createElement("label");
+      rotuloEvidencia.htmlFor = "evid" + i;
+      rotuloEvidencia.textContent = "Evidência prática";
+
+      const evidencia = document.createElement("textarea");
+      evidencia.id = "evid" + i;
+      evidencia.maxLength = 250;
+      evidencia.placeholder = "Ex.: Organizei uma atividade em equipe.";
+
+      grupo.append(rotulo, entrada, rotuloEvidencia, evidencia);
+      campos.appendChild(grupo);
+    }
+
+    function elementoSVG(tipo, atributos, texto) {
+      const el = document.createElementNS(NS, tipo);
+      Object.entries(atributos).forEach(([k, v]) =>
+        el.setAttribute(k, v)
+      );
+      if (texto !== undefined) el.textContent = texto;
+      svg.appendChild(el);
+      return el;
+    }
+
+    function gerarMapa() {
+      const nome = document.getElementById("nome").value.trim()
+        || "Minha trajetória";
+
+      const itens = [];
+      for (let i = 1; i <= 6; i++) {
+        const titulo = document.getElementById("comp" + i).value.trim();
+        const evidencia = document.getElementById("evid" + i).value.trim();
+        if (titulo) itens.push({ titulo, evidencia });
+      }
+
+      svg.replaceChildren();
+      evidencias.replaceChildren();
+
+      elementoSVG("rect", {
+        width: 760, height: 460, fill: "#071427", rx: 12
+      });
+
+      elementoSVG("circle", {
+        cx: 380, cy: 230, r: 82,
+        fill: "#123253", stroke: "#35e0f4",
+        "stroke-width": 2
+      });
+
+      const centro = elementoSVG("text", {
+        x: 380, y: 225, fill: "white",
+        "text-anchor": "middle", "font-size": 16,
+        "font-weight": "bold"
+      });
+
+      const palavras = nome.match(/.{1,23}(?:\s|$)/g) || [nome];
+      palavras.slice(0, 3).forEach((parte, i) => {
+        const tspan = document.createElementNS(NS, "tspan");
+        tspan.setAttribute("x", 380);
+        tspan.setAttribute("dy", i === 0 ? 0 : 21);
+        tspan.textContent = parte.trim();
+        centro.appendChild(tspan);
+      });
+
+      itens.forEach((item, i) => {
+        const angulo = (i * 2 * Math.PI / itens.length) - Math.PI / 2;
+        const x = 380 + 260 * Math.cos(angulo);
+        const y = 230 + 165 * Math.sin(angulo);
+
+        elementoSVG("line", {
+          x1: 380, y1: 230, x2: x, y2: y,
+          stroke: "#35e0f4", "stroke-width": 1.5,
+          opacity: 0.7
+        });
+
+
+const particula = document.createElementNS(NS, "circle");
+
+particula.setAttribute("r", "3");
+particula.setAttribute("fill", "#35e0f4");
+
+const movimento = document.createElementNS(NS, "animateMotion");
+
+movimento.setAttribute("dur", `${3 + i * 0.5}s`);
+movimento.setAttribute("repeatCount", "indefinite");
+movimento.setAttribute(
+  "path",
+  `M 380 230 L ${x} ${y}`
+);
+
+particula.appendChild(movimento);
+
+if (!window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+).matches) {
+  svg.appendChild(particula);
+}
+
+
+        elementoSVG("circle", {
+          cx: x, cy: y, r: 7, fill: "#aa80ff"
+        });
+
+        const texto = item.titulo.length > 24
+          ? item.titulo.slice(0, 23) + "…"
+          : item.titulo;
+
+        elementoSVG("text", {
+          x, y: y + (y < 230 ? -16 : 24),
+          fill: "#edf5ff", "font-size": 13,
+          "text-anchor": "middle"
+        }, texto);
+
+const areaClique = document.createElementNS(NS, "circle");
+
+areaClique.setAttribute("cx", x);
+areaClique.setAttribute("cy", y);
+areaClique.setAttribute("r", 20);
+areaClique.setAttribute("fill", "transparent");
+areaClique.setAttribute("stroke", "transparent");
+areaClique.setAttribute("tabindex", "0");
+areaClique.setAttribute("role", "button");
+areaClique.setAttribute(
+  "aria-label",
+  "Ver evidência de " + item.titulo
+);
+areaClique.style.cursor = "pointer";
+
+const mostrarEvidencia = () => {
+  statusMapa.textContent =
+    item.titulo + ": " +
+    (item.evidencia || "Evidência não informada.");
+};
+
+areaClique.addEventListener("click", mostrarEvidencia);
+
+areaClique.addEventListener("keydown", (evento) => {
+  if (evento.key === "Enter" || evento.key === " ") {
+    evento.preventDefault();
+    mostrarEvidencia();
+  }
+});
+
+svg.appendChild(areaClique);
+
+        const paragrafo = document.createElement("p");
+        const destaque = document.createElement("strong");
+        destaque.textContent = item.titulo + ": ";
+        paragrafo.append(destaque, document.createTextNode(
+          item.evidencia || "Evidência ainda não informada."
+        ));
+        evidencias.appendChild(paragrafo);
+      });
+
+      statusMapa.textContent = itens.length
+        ? "Mapa gerado com " + itens.length + " competência(s)."
+        : "Preencha pelo menos uma competência para gerar seu mapa.";
+    }
+
+    document.getElementById("gerar").addEventListener("click", gerarMapa);
+
+    document.getElementById("limpar").addEventListener("click", () => {
+      document.querySelectorAll("#editor input, #editor textarea")
+        .forEach(campo => campo.value = "");
+      gerarMapa();
+    });
+
+    document.getElementById("copiar").addEventListener("click", async () => {
+      const texto = document.getElementById("prompt").textContent;
+      try {
+        await navigator.clipboard.writeText(texto);
+        document.getElementById("status-copia").textContent =
+          "Prompt copiado!";
+      } catch {
+        document.getElementById("status-copia").textContent =
+          "Selecione o texto acima e copie com Ctrl + C.";
+      }
+    });
+
+    document.getElementById("exportar").addEventListener("click", () => {
+      const copia = svg.cloneNode(true);
+      copia.setAttribute("xmlns", NS);
+      const conteudo = new XMLSerializer().serializeToString(copia);
+      const blob = new Blob([conteudo], { type: "image/svg+xml" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "meu-mapa-de-competencias.svg";
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
+      
+document.getElementById("exportar-html").addEventListener("click", () => {
+  const itens = [];
+
+  for (let i = 1; i <= 6; i++) {
+    const titulo = document.getElementById("comp" + i).value.trim();
+    const evidencia = document.getElementById("evid" + i).value.trim();
+
+    if (titulo) {
+      itens.push({ titulo, evidencia });
+    }
+  }
+
+  if (itens.length === 0) {
+    statusMapa.textContent =
+      "Preencha pelo menos uma competência antes de exportar.";
+    return;
+  }
+
+  // Atualiza o mapa antes da exportação.
+  gerarMapa();
+
+  const nome = document.getElementById("nome").value.trim()
+    || "Minha trajetória";
+
+  const mapa = svg.cloneNode(true);
+  mapa.setAttribute("xmlns", NS);
+
+  // Retira as áreas de clique usadas no editor.
+  mapa.querySelectorAll('[role="button"]').forEach(el => el.remove());
+
+  const svgTexto = new XMLSerializer().serializeToString(mapa);
+
+  // Converte os dados em texto seguro para incorporar ao HTML.
+  const escapar = (valor) => String(valor).replace(
+    /[&<>"']/g,
+    caractere => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[caractere]
+  );
+
+  const detalhes = itens.map((item, indice) => `
+    <button class="competencia" data-indice="${indice}">
+      ${escapar(item.titulo)}
+    </button>
+  `).join("");
+
+  const dados = itens.map(item => ({
+    titulo: item.titulo,
+    evidencia: item.evidencia
+  }));
+
+  const dadosJSON = JSON.stringify(dados).replace(/</g, "\\u003c");
+
+  const html = `<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meu Mapa Interativo</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 30px 16px;
+    font-family: Arial, sans-serif;
+    background: #060d1b;
+    color: #edf5ff;
+    text-align: center;
+  }
+  h1 { color: #35e0f4; }
+  .container { max-width: 960px; margin: auto; }
+  svg { width: 100%; height: auto; }
+  .botoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 25px 0;
+  }
+  .competencia {
+    padding: 12px 18px;
+    background: #102843;
+    color: white;
+    border: 1px solid #35e0f4;
+    border-radius: 9px;
+    cursor: pointer;
+  }
+  .competencia:hover, .competencia:focus-visible {
+    background: #214466;
+    outline: 2px solid #aa80ff;
+  }
+  #detalhe {
+    padding: 22px;
+    background: #101c32;
+    border: 1px solid #28415d;
+    border-radius: 12px;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    svg animateMotion { display: none; }
+  }
+</style>
+</head>
+<body>
+<main class="container">
+  <h1>${escapar(nome)}</h1>
+  <p>Explore minhas competências e suas evidências.</p>
+  ${svgTexto}
+  <div class="botoes">${detalhes}</div>
+  <section id="detalhe" aria-live="polite">
+    Selecione uma competência para conhecer sua evidência.
+  </section>
+</main>
+<script id="dados" type="application/json">${dadosJSON}<\/script>
+<script>
+  const dados = JSON.parse(document.getElementById("dados").textContent);
+  const painel = document.getElementById("detalhe");
+
+  document.querySelectorAll(".competencia").forEach(botao => {
+    botao.addEventListener("click", () => {
+      const item = dados[Number(botao.dataset.indice)];
+      painel.replaceChildren();
+
+      const titulo = document.createElement("h2");
+      titulo.textContent = item.titulo;
+
+      const texto = document.createElement("p");
+      texto.textContent = item.evidencia || "Evidência não informada.";
+
+      painel.append(titulo, texto);
+    });
+  });
+<\/script>
+</body>
+</html>`;
+
+  const blob = new Blob([html], {
+    type: "text/html;charset=utf-8"
+  });
+
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = "meu-mapa-interativo.html";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+  statusMapa.textContent = "Arquivo HTML preparado para download.";
+});
+
+    gerarMapa();
+  </script>
+</body>
+</html>
